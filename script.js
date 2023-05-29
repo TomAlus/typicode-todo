@@ -1,5 +1,5 @@
 const apiUrl = 'https://jsonplaceholder.typicode.com/todos';
-const todosLimit = 5;
+const todosLimit = 10;
 
 let todoForm = document.getElementById('todo-form');
 let todoList = document.getElementById('todo-list');
@@ -49,8 +49,30 @@ const createTodo = (e) => {
     .catch((error) => console.log(error));
 };
 
+const toggleCompleted = (e) => {
+  e.target.classList[0]
+    ? e.target.classList.remove('done')
+    : e.target.classList.add('done');
+
+  updateTodo(e.target.dataset.id, e.target.classList.contains('done'));
+};
+
+const updateTodo = (id, completed) => {
+  fetch(`${apiUrl}/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ completed }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
+};
+
 const init = () => {
   document.addEventListener('DOMContentLoaded', getTodos);
+  todoList.addEventListener('click', toggleCompleted);
   todoForm.addEventListener('submit', createTodo);
 };
 
