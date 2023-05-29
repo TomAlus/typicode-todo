@@ -50,6 +50,7 @@ const createTodo = (e) => {
         if (!res.ok) {
           throw new Error('Request Failed!!!');
         }
+        return res.json();
       })
       .then((data) => {
         addTodoToDOM(data);
@@ -87,6 +88,7 @@ const deleteTodo = (e) => {
       if (!res.ok || res.status !== 200) {
         throw new Error('Request Failed!!!');
       }
+      return res.json();
     })
     .then(() => e.target.remove())
     .catch((error) => console.log(error));
