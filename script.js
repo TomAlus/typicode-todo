@@ -7,7 +7,12 @@ let todoInput = document.getElementById('todo-input');
 
 const getTodos = () => {
   fetch(`${apiUrl}?_limit=${todosLimit}`)
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok || res.status !== 200) {
+        throw new Error('Request Failed!!!');
+      }
+      return res.json();
+    })
     .then((data) => {
       data.forEach((todo) => addTodoToDOM(todo));
     })
@@ -41,7 +46,11 @@ const createTodo = (e) => {
         'Content-Type': 'application/json',
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok || res.status !== 200) {
+          throw new Error('Request Failed!!!');
+        }
+      })
       .then((data) => {
         addTodoToDOM(data);
         todoInput.value = '';
@@ -74,7 +83,11 @@ const deleteTodo = (e) => {
   fetch(`${apiUrl}/${e.target.dataset.id}`, {
     method: 'DELETE',
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok || res.status !== 200) {
+        throw new Error('Request Failed!!!');
+      }
+    })
     .then(() => e.target.remove())
     .catch((error) => console.log(error));
 };
