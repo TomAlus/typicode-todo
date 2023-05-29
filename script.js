@@ -8,7 +8,7 @@ let todoInput = document.getElementById('todo-input');
 const getTodos = () => {
   fetch(`${apiUrl}?_limit=${todosLimit}`)
     .then((res) => {
-      if (!res.ok || res.status !== 200) {
+      if (!res.ok) {
         throw new Error('Request Failed!!!');
       }
       return res.json();
@@ -47,7 +47,7 @@ const createTodo = (e) => {
       },
     })
       .then((res) => {
-        if (!res.ok || res.status !== 200) {
+        if (!res.ok) {
           throw new Error('Request Failed!!!');
         }
       })
