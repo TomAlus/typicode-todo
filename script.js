@@ -28,24 +28,28 @@ const addTodoToDOM = (todo) => {
 const createTodo = (e) => {
   e.preventDefault();
 
-  const newTodo = {
-    title: e.target.firstElementChild.value,
-    completed: false,
-  };
+  if (e.target.firstElementChild.value) {
+    const newTodo = {
+      title: e.target.firstElementChild.value,
+      completed: false,
+    };
 
-  fetch(apiUrl, {
-    method: 'POST',
-    body: JSON.stringify(newTodo),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      addTodoToDOM(data);
-      todoInput.value = '';
+    fetch(apiUrl, {
+      method: 'POST',
+      body: JSON.stringify(newTodo),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
-    .catch((error) => console.log(error));
+      .then((res) => res.json())
+      .then((data) => {
+        addTodoToDOM(data);
+        todoInput.value = '';
+      })
+      .catch((error) => console.log(error));
+  } else {
+    alert('Please add a todo!!!');
+  }
 };
 
 const toggleCompleted = (e) => {
