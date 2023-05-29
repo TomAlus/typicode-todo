@@ -1,0 +1,49 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+#todo-form {
+  margin-bottom: 2rem;
+}
+
+#todo-form input {
+  padding: 1rem;
+  margin-left: 0.5rem;
+  min-width: 16rem;
+}
+
+#todo-form button {
+  padding: 1rem;
+  min-width: 8rem;
+}
+
+#todo-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#todo-list div {
+  min-width: 12rem;
+  width: auto;
+  padding: 1rem;
+  margin: 0.5rem;
+  border: 1px solid #333;
+  box-shadow: 1px 3px 10px rgba(51, 51, 51, 0.45);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#todo-list div.done {
+  background-color: salmon;
+  color: white;
+}
