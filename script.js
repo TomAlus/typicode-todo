@@ -22,7 +22,6 @@ const addTodoToDOM = (todo) => {
   if (todo.completed) {
     div.classList.add('done');
   }
-
   todoList.appendChild(div);
 };
 
@@ -64,9 +63,15 @@ const updateTodo = (id, completed) => {
     headers: {
       'Content-Type': 'application/json',
     },
+  });
+};
+
+const deleteTodo = (e) => {
+  fetch(`${apiUrl}/${e.target.dataset.id}`, {
+    method: 'DELETE',
   })
     .then((res) => res.json())
-    .then((data) => console.log(data))
+    .then(() => e.target.remove())
     .catch((error) => console.log(error));
 };
 
@@ -74,6 +79,7 @@ const init = () => {
   document.addEventListener('DOMContentLoaded', getTodos);
   todoList.addEventListener('click', toggleCompleted);
   todoForm.addEventListener('submit', createTodo);
+  todoList.addEventListener('dblclick', deleteTodo);
 };
 
 init();
